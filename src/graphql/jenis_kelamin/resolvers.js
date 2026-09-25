@@ -1,27 +1,27 @@
-const Angkatan = require('../../models/angkatan/angkatanModel');
+const JenisKelamin = require('../../models/jenis_kelamin/jenisKelaminModel');
 const resolvers = {
     Query: {
-        angkatan: async () => {
-            return await Angkatan.findAll({
+        jenisKelamin: async () => {
+            return await JenisKelamin.findAll({
                 order: [
                     ["nama", "ASC"]
                 ]
             });
         },
-        angkatanById: async (_, { id }) => {
-            const data = await Angkatan.findAll({
+        jenisKelaminById: async (_, { id }) => {
+            const data = await JenisKelamin.findAll({
                 where: {
-                    id_angkatan: id
+                    id_jenis_kelamin: id
                 }
             });
             if (!data) {
-                throw new Error("Angkatan tidak ditemukan");
+                throw new Error("Jenis Kelamin tidak ditemukan");
             }
             return data;
         },
-        cariAngkatan: async (_, { keyword }) => {
+        cariJenisKelamin: async (_, { keyword }) => {
             const {Op} = require("sequelize");
-            return await Angkatan.findAll({
+            return await JenisKelamin.findAll({
                 where: {
                     [Op.or]: [
                         {
@@ -44,9 +44,9 @@ const resolvers = {
     },
 
     Mutation: {
-        tambahAngkatan: async (_, { input }) => {
+        tambahJenisKelamin: async (_, { input }) => {
             const waktu = new Date();
-            return await Angkatan.create({
+            return await JenisKelamin.create({
                 ...input,
                 create_at: waktu,
                 update_at: waktu,
@@ -54,14 +54,14 @@ const resolvers = {
             });
         },
 
-        updateAngkatan: async (_, { id, input }) => {
-        const data = await Angkatan.findOne({
+        updateJenisKelamin: async (_, { id, input }) => {
+        const data = await JenisKelamin.findOne({
             where: {
-                id_angkatan: id
+                id_jenis_kelamin: id
             }
         });
         if (!data) {
-            throw new Error("Angkatan tidak ditemukan");
+            throw new Error("Jenis Kelamin tidak ditemukan");
         }
         return await data.update({
             ...input,
@@ -71,14 +71,14 @@ const resolvers = {
         return data;
         },
 
-        deleteAngkatan: async (_, { id }) => {
-            const data = await Angkatan.findOne({
+        deleteJenisKelamin: async (_, { id }) => {
+            const data = await JenisKelamin.findOne({
                 where: {
-                    id_angkatan: id
+                    id_jenis_kelamin: id
                 }
             });
             if (!data) {
-                throw new Error("Angkatan tidak ditemukan");
+                throw new Error("Jenis Kelamin tidak ditemukan");
             }
             await data.update({
                 delete_at: new Date(),
@@ -87,14 +87,14 @@ const resolvers = {
             return data;
         },
 
-        restoreAngkatan: async (_, { id }) => {
-            const data = await Angkatan.findOne({
+        restoreJenisKelamin: async (_, { id }) => {
+            const data = await JenisKelamin.findOne({
                 where: {
-                    id_angkatan: id
+                    id_jenis_kelamin: id
                 }
             });
             if (!data) {
-                throw new Error("Angkatan tidak ditemukan");
+                throw new Error("Jenis Kelamin tidak ditemukan");
             }
             await data.update({
                 delete_at: null,
