@@ -30,5 +30,16 @@ const JenisKelamin = sequelize.define(
         type: Datatypes.DATE,
         defaultValue: Datatypes.NOW
     },
+
+    delete_at: {
+        type: Datatypes.DATE,
+        allowNull: true
   }
-)
+},
+{
+    tableName: "jenis_kelamin",
+    timestamps: false,
+  }
+);
+
+module.exports = JenisKelamin;
