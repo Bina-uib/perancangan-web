@@ -19,7 +19,7 @@ console.log("Port dari .env:", process.env.PORT);
 app.get("/", (req, res) => {
     res.json({
         message: "API Mahasiswa berjalan Dan Sukses",
-        port: precess.env.PORT
+        port: process.env.PORT
     });
 });
 
