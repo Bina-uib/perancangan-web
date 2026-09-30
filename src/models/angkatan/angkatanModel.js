@@ -32,7 +32,7 @@ const angkatan = sequelize.define(
     },
 
     delete_at: {
-        type: Datatypes.DATE,
+        type: DataTypes.DATE,
         allowNull: true
   }
 },
