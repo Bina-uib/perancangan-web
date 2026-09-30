@@ -1,38 +1,38 @@
-const { Datatypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const sequelize = require("../../config/database");
 
 const JenisKelamin = sequelize.define(
   "JenisKelamin",
   {
     id_jenis_kelamin: {
-        type: Datatypes.UUID,
-        defaultValue: Datatypes.UUIDV4,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
 
     kode: {
-        type: Datatypes.CHAR(1),
+        type: DataTypes.CHAR(1),
         allowNull: false,
         unique: true
     },
 
     nama: {
-        type: Datatypes.STRING(20),
+        type: DataTypes.STRING(20),
         allowNull: false,
     },
 
     create_at: {
-        type: Datatypes.DATE,
-        defaultValue: Datatypes.NOW
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     },
 
     update_at: {
-        type: Datatypes.DATE,
-        defaultValue: Datatypes.NOW
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     },
 
     delete_at: {
-        type: Datatypes.DATE,
+        type: DataTypes.DATE,
         allowNull: true
   }
 },

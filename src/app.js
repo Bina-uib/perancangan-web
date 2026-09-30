@@ -1,11 +1,15 @@
 const express = require("express");
+
 const cors = require("cors");
+
 const app = express();
 
-const {apolloserver} = require("@apollo/server");
-const {expressMiddleware} = require("@as-integrations/express5");
+const { ApolloServer } = require("@apollo/server");
+
+const { expressMiddleware } = require("@as-integrations/express5");
 
 const typeDefs = require("./graphql/schema");
+
 const jenisKelaminResolvers = require("./graphql/jenis_kelamin/resolvers");
 
 const resolvers = [
@@ -13,7 +17,9 @@ const resolvers = [
 ];
 
 app.use(cors());
+
 app.use(express.json());
+
 console.log("Port dari .env:", process.env.PORT);
 
 app.get("/", (req, res) => {
@@ -23,19 +29,20 @@ app.get("/", (req, res) => {
     });
 });
 
-const server = new apolloServer({
+const server = new ApolloServer({
     typeDefs,
     resolvers
 });
 
-async function startGraphQL () {
+async function startGraphQL() {
     await server.start();
+
     app.use(
         "/graphql",
         expressMiddleware(server)
     );
 }
 
-startGraphQL ();
+startGraphQL();
 
 module.exports = app;

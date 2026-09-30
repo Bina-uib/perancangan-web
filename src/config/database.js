@@ -11,3 +11,5 @@ const db = new Sequelize(
         timezone: process.env.DB_TIMEZONE
     }
 );
+
+module.exports = db;
