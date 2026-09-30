@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
     });
 });
 
-const server = new ApolloServer({
+const server = new apolloServer({
     typeDefs,
     resolvers
 });
