@@ -2,44 +2,39 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../../config/database");
 
 const angkatan = sequelize.define(
-  "Angkatan",
-  {
-    id_angkatan: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-    },
+    "Angkatan",
+    {
+        id_angkatan: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true,
+        },
 
-    kode: {
-        type: DataTypes.CHAR(1),
-        allowNull: false,
-        unique: true
-    },
+        tahun_ajaran: {
+            type: DataTypes.CHAR(9),
+            allowNull: false,
+            unique: true
+        },
 
-    nama: {
-        type: DataTypes.STRING(20),
-        allowNull: false,
-    },
+        create_at: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
+        },
 
-    create_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
-    },
+        update_at: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
+        },
 
-    update_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
+        delete_at: {
+            type: DataTypes.DATE,
+            allowNull: true
+        }
     },
-
-    delete_at: {
-        type: DataTypes.DATE,
-        allowNull: true
-  }
-},
-{
-    tableName: "angkatan",
-    timestamps: false,
-  }
+    {
+        tableName: "angkatan",
+        timestamps: false,
+    }
 );
 
 module.exports = angkatan;

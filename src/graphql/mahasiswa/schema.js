@@ -1,30 +1,48 @@
 const typeDefs = `#graphql
-    type mahasiswa {
+    type Mahasiswa {
         id_mahasiswa: ID!
-        kode: String!
+        nim: String!
         nama: String!
+        id_jenis_kelamin: ID!
+        tempat_lahir: String
+        tanggal_lahir: String
+        alamat: String
+        no_hp: String
+        email: String
+        id_program_studi: ID
+        id_angkatan: ID
         create_at: String
         update_at: String
         delete_at: String
     }
-        input MahasiswaInput {
-        kode: String!
+
+    input MahasiswaInput {
+        nim: String!
         nama: String!
+        id_jenis_kelamin: ID!
+        tempat_lahir: String
+        tanggal_lahir: String
+        alamat: String
+        no_hp: String
+        email: String
+        id_program_studi: ID
+        id_angkatan: ID
     }
 
     extend type Query {
-        mahasiswa: [mahasiswa]
-        mahasiswaById(id: ID!): [mahasiswa]
-        cariMahasiswa(keyword: String!): [mahasiswa]
+        mahasiswa: [Mahasiswa]
+        mahasiswaById(id: ID!): [Mahasiswa]
+        cariMahasiswa(keyword: String!): [Mahasiswa]
     }
-        extend type Mutation {
-        tambahMahasiswa(input: MahasiswaInput!): mahasiswa
+
+    extend type Mutation {
+        tambahMahasiswa(input: MahasiswaInput!): Mahasiswa
         updateMahasiswa(
             id: ID!
             input: MahasiswaInput!
-        ): mahasiswa
-        deleteMahasiswa(id: ID!): mahasiswa
-        restoreMahasiswa(id: ID!): mahasiswa
+        ): Mahasiswa
+        deleteMahasiswa(id: ID!): Mahasiswa
+        restoreMahasiswa(id: ID!): Mahasiswa
     }
 `;
 

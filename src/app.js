@@ -11,9 +11,15 @@ const { expressMiddleware } = require("@as-integrations/express5");
 const typeDefs = require("./graphql/schema");
 
 const jenisKelaminResolvers = require("./graphql/jenis_kelamin/resolvers");
+const programStudiResolvers = require("./graphql/program_studi/resolvers");
+const angkatanResolvers = require("./graphql/angkatan/resolvers");
+const mahasiswaResolvers = require("./graphql/mahasiswa/resolvers");
 
 const resolvers = [
-    jenisKelaminResolvers
+    jenisKelaminResolvers,
+    programStudiResolvers,
+    angkatanResolvers,
+    mahasiswaResolvers
 ];
 
 app.use(cors());

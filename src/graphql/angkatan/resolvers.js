@@ -1,43 +1,40 @@
 const Angkatan = require('../../models/angkatan/angkatanModel');
+
 const resolvers = {
     Query: {
         angkatan: async () => {
             return await Angkatan.findAll({
                 order: [
-                    ["nama", "ASC"]
+                    ["tahun_ajaran", "ASC"]
                 ]
             });
         },
+
         angkatanById: async (_, { id }) => {
             const data = await Angkatan.findAll({
                 where: {
                     id_angkatan: id
                 }
             });
-            if (!data) {
+
+            if (!data || data.length === 0) {
                 throw new Error("Angkatan tidak ditemukan");
             }
+
             return data;
         },
+
         cariAngkatan: async (_, { keyword }) => {
-            const {Op} = require("sequelize");
+            const { Op } = require("sequelize");
+
             return await Angkatan.findAll({
                 where: {
-                    [Op.or]: [
-                        {
-                            kode: {
-                                [Op.like]: `%${keyword}%`
-                            }
-                        },
-                        {
-                            nama: {
-                                [Op.like]: `%${keyword}%`
-                            }
-                        }
-                    ]
+                    tahun_ajaran: {
+                        [Op.like]: `%${keyword}%`
+                    }
                 },
                 order: [
-                    ["nama", "ASC"]
+                    ["tahun_ajaran", "ASC"]
                 ]
             });
         }
@@ -46,6 +43,7 @@ const resolvers = {
     Mutation: {
         tambahAngkatan: async (_, { input }) => {
             const waktu = new Date();
+
             return await Angkatan.create({
                 ...input,
                 create_at: waktu,
@@ -55,20 +53,20 @@ const resolvers = {
         },
 
         updateAngkatan: async (_, { id, input }) => {
-        const data = await Angkatan.findOne({
-            where: {
-                id_angkatan: id
-            }
-        });
-        if (!data) {
-            throw new Error("Angkatan tidak ditemukan");
-        }
-        return await data.update({
-            ...input,
-            update_at: new Date()
-        });
+            const data = await Angkatan.findOne({
+                where: {
+                    id_angkatan: id
+                }
+            });
 
-        return data;
+            if (!data) {
+                throw new Error("Angkatan tidak ditemukan");
+            }
+
+            return await data.update({
+                ...input,
+                update_at: new Date()
+            });
         },
 
         deleteAngkatan: async (_, { id }) => {
@@ -77,13 +75,16 @@ const resolvers = {
                     id_angkatan: id
                 }
             });
+
             if (!data) {
                 throw new Error("Angkatan tidak ditemukan");
             }
+
             await data.update({
                 delete_at: new Date(),
                 update_at: new Date()
             });
+
             return data;
         },
 
@@ -93,13 +94,16 @@ const resolvers = {
                     id_angkatan: id
                 }
             });
+
             if (!data) {
                 throw new Error("Angkatan tidak ditemukan");
             }
+
             await data.update({
                 delete_at: null,
                 update_at: new Date()
             });
+
             return data;
         }
     }

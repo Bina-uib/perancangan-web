@@ -1,15 +1,14 @@
 const typeDefs = `#graphql
     type Angkatan {
         id_angkatan: ID!
-        kode: String!
-        nama: String!
+        tahun_ajaran: String!
         create_at: String
         update_at: String
         delete_at: String
     }
-        input AngkatanInput {
-        kode: String!
-        nama: String!
+
+    input AngkatanInput {
+        tahun_ajaran: String!
     }
 
     extend type Query {
@@ -17,7 +16,8 @@ const typeDefs = `#graphql
         angkatanById(id: ID!): [Angkatan]
         cariAngkatan(keyword: String!): [Angkatan]
     }
-        extend type Mutation {
+
+    extend type Mutation {
         tambahAngkatan(input: AngkatanInput!): Angkatan
         updateAngkatan(
             id: ID!

@@ -1,4 +1,5 @@
 const mahasiswa = require('../../models/mahasiswa/mahasiswaModel');
+
 const resolvers = {
     Query: {
         mahasiswa: async () => {
@@ -8,24 +9,29 @@ const resolvers = {
                 ]
             });
         },
+
         mahasiswaById: async (_, { id }) => {
             const data = await mahasiswa.findAll({
                 where: {
                     id_mahasiswa: id
                 }
             });
-            if (!data) {
+
+            if (!data || data.length === 0) {
                 throw new Error("Mahasiswa tidak ditemukan");
             }
+
             return data;
         },
+
         cariMahasiswa: async (_, { keyword }) => {
-            const {Op} = require("sequelize");
+            const { Op } = require("sequelize");
+
             return await mahasiswa.findAll({
                 where: {
                     [Op.or]: [
                         {
-                            kode: {
+                            nim: {
                                 [Op.like]: `%${keyword}%`
                             }
                         },
@@ -46,6 +52,7 @@ const resolvers = {
     Mutation: {
         tambahMahasiswa: async (_, { input }) => {
             const waktu = new Date();
+
             return await mahasiswa.create({
                 ...input,
                 create_at: waktu,
@@ -55,20 +62,20 @@ const resolvers = {
         },
 
         updateMahasiswa: async (_, { id, input }) => {
-        const data = await mahasiswa.findOne({
-            where: {
-                id_mahasiswa: id
-            }
-        });
-        if (!data) {
-            throw new Error("Mahasiswa tidak ditemukan");
-        }
-        return await data.update({
-            ...input,
-            update_at: new Date()
-        });
+            const data = await mahasiswa.findOne({
+                where: {
+                    id_mahasiswa: id
+                }
+            });
 
-        return data;
+            if (!data) {
+                throw new Error("Mahasiswa tidak ditemukan");
+            }
+
+            return await data.update({
+                ...input,
+                update_at: new Date()
+            });
         },
 
         deleteMahasiswa: async (_, { id }) => {
@@ -77,13 +84,16 @@ const resolvers = {
                     id_mahasiswa: id
                 }
             });
+
             if (!data) {
                 throw new Error("Mahasiswa tidak ditemukan");
             }
+
             await data.update({
                 delete_at: new Date(),
                 update_at: new Date()
             });
+
             return data;
         },
 
@@ -93,13 +103,16 @@ const resolvers = {
                     id_mahasiswa: id
                 }
             });
+
             if (!data) {
                 throw new Error("Mahasiswa tidak ditemukan");
             }
+
             await data.update({
                 delete_at: null,
                 update_at: new Date()
             });
+
             return data;
         }
     }
